@@ -1,3 +1,4 @@
 ---
 slack:
   token: xoxp-hogehoge
+start_num: 1
