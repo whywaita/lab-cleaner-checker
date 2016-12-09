@@ -42,4 +42,4 @@ handler do |job|
   end
 end
 
-every(30.seconds, 'lab-cleaner-day.job')
+every(1.day, 'lab-cleaner-day.job')
