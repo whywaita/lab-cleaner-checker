@@ -38,6 +38,15 @@ handler do |job|
         count += 1
       end
 
+    else
+      # if today not Friday
+      subject = today.strftime("%x") + "\nToday is not Friday...\n"
+
+      Slack.chat_postMessage(
+        channel: '#cleaner-logger',
+        username: 'bot',
+        text: subject
+      )
     end
   end
 end
