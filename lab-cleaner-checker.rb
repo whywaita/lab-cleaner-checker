@@ -10,7 +10,7 @@ count = config_file['start_num']
 Slack.configure do |config|
   config.token = config_file['slack']['token']
   if config.token == ''
-    p "TOKEN is blank...\n"
+    STDERR.puts "TOKEN is blank...\n"
     exit(1)
   end
 end
@@ -54,5 +54,5 @@ handler do |job|
   end
 end
 
-# every(1.day, 'lab-cleaner-day.job', :at => '18:00')
-every(10.seconds, 'lab-cleaner-day.job')
+every(1.day, 'lab-cleaner-day.job', :at => '18:00')
+# every(10.seconds, 'lab-cleaner-day.job')
