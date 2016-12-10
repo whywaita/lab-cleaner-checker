@@ -51,4 +51,4 @@ handler do |job|
   end
 end
 
-every(1.day, :at => '18:00' 'lab-cleaner-day.job')
+every(1.day, 'lab-cleaner-day.job' , :at => '18:00')
