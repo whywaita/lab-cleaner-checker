@@ -13,7 +13,7 @@ handler do |job|
   when 'lab-cleaner-day.job'
     Slack.configure do |config|
       config.token = config_file['slack']['token']
-      if config.token == '' then
+      if config.token == ''
         p "TOKEN is blank...\n"
         exit(1)
       end
@@ -22,7 +22,7 @@ handler do |job|
     today = Time.now
     num_group = [1, 2, 3, 4]
     
-    if today.strftime('%w') == "5" then
+    if today.strftime('%w') == "5"
       # if today Friday
       subject = today.strftime('%x') + "\nToday is Friday!\n" + "Today cleaner group is " + num_group[count].to_s
   
