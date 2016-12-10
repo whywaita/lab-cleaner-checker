@@ -44,11 +44,13 @@ handler do |job|
 
       Slack.chat_postMessage(
         channel: '#cleaner-logger',
-        username: 'bot',
-        text: subject
+        username: 'cleaner-cheacker bot',
+        text: subject,
+        icon_url: 'http://2.bp.blogspot.com/-c1dEoxGvncY/UYzZhH-nugI/AAAAAAAAR7c/GJ1mk-SovxU/s400/oosouji_soujiki.png'
       )
     end
   end
 end
 
 every(1.day, 'lab-cleaner-day.job', :at => '18:00')
+# every(10.seconds, 'lab-cleaner-day.job')
