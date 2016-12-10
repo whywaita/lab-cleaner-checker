@@ -22,17 +22,17 @@ handler do |job|
     today = Time.now
     num_group = [1, 2, 3, 4]
     
-    if today.strftime('%w') == "5"
+    if today.strftime('%w') == '5'
       # if today Friday
       subject = today.strftime('%x') + "\nToday is Friday!\n" + "Today cleaner group is " + num_group[count].to_s
-  
+
       Slack.chat_postMessage(
         channel: '#cleaner-logger',
         username: 'bot',
         text: subject
       )
 
-      if count == 3 
+      if count == 3
         count = 0
       else
         count += 1
