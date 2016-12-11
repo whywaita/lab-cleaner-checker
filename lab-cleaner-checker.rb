@@ -14,11 +14,11 @@ Slack.configure do |config|
   end
 end
 
-def post_slack_messeage(subject)
+def post_slack_messeage(subject, config_file)
   # post slack messeage
 
   Slack.chat_postMessage(
-    channel: '#cleaner-logger',
+    channel: config_file['slack']['channel'],
     username: 'bot',
     text: subject,
     icon_url: 'http://2.bp.blogspot.com/-c1dEoxGvncY/UYzZhH-nugI/AAAAAAAAR7c/GJ1mk-SovxU/s400/oosouji_soujiki.png'
@@ -54,7 +54,7 @@ handler do |job|
       count = get_current_num
       subject = today.strftime('%x') + "\nToday is Friday!\n" + "Today cleaner group is " + num_group[count].to_s
 
-      post_slack_messeage(subject)
+      post_slack_messeage(subject, config_file)
 
       if count == num_group.length - 1
         count = 0
@@ -68,7 +68,7 @@ handler do |job|
       # if today not Friday
       subject = today.strftime('%x') + "\nToday is not Friday...\n"
 
-      post_slack_messeage(subject)
+      post_slack_messeage(subject, config_file)
     end
   end
 end
