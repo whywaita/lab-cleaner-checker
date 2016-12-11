@@ -6,7 +6,6 @@ require 'yaml'
 include Clockwork
 
 config_file = YAML.load_file('config.yml')
-count = config_file['start_num']
 Slack.configure do |config|
   config.token = config_file['slack']['token']
   if config.token == ''
@@ -26,23 +25,43 @@ def post_slack_messeage(subject)
   )
 end
 
+def get_current_num()
+  # get current number from file
+
+  File::open("log/current_num", "r") {|f|
+    num = f.gets
+    return num.to_i
+  }
+end
+
+def write_count(num)
+  # write current num
+
+  File::open("log/current_num", "w") {|f|
+    f.print(num)
+    retun nil
+  }
+end
+
 handler do |job|
   case job
   when 'lab-cleaner-day.job'
-
     today = Time.now
     num_group = [1, 2, 3, 4]
 
     if today.strftime('%w') == '5'
       # if today Friday
+      count = get_current_num
       subject = today.strftime('%x') + "\nToday is Friday!\n" + "Today cleaner group is " + num_group[count].to_s
 
       post_slack_messeage(subject)
 
-      if count == 3
+      if count == num_group.length - 1
         count = 0
+        write_count(count)
       else
         count += 1
+        write_count(count)
       end
 
     else
