@@ -39,7 +39,7 @@ def write_count(num)
 
   File::open("log/current_num", "w") {|f|
     f.print(num)
-    retun nil
+    return nil
   }
 end
 
