@@ -11,6 +11,7 @@ GEM
       activesupport
       tzinfo
     concurrent-ruby (1.0.2)
+    daemons (1.2.4)
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
     faraday_middleware (0.10.1)
@@ -44,6 +45,7 @@ PLATFORMS
 
 DEPENDENCIES
   clockwork
+  daemons
   rubocop
   slack-api
 
