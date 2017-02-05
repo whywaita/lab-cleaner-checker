@@ -7,7 +7,7 @@ include Clockwork
 
 config_file = YAML.load_file('config.yml')
 Slack.configure do |config|
-  config.token = config_file['slack']['token']
+  config.token = config_file['slack']['token'] || ENV['SLACK_TOKEN']
   if config.token == ''
     STDERR.puts "TOKEN is blank...\n"
     exit(1)
@@ -18,7 +18,7 @@ def post_slack_messeage(subject, config_file)
   # post slack messeage
 
   Slack.chat_postMessage(
-    channel: config_file['slack']['channel'],
+    channel: config_file['slack']['channel'] || ENV['SLACK_CHANNEL'],
     username: 'bot',
     text: subject,
     icon_url: 'http://2.bp.blogspot.com/-c1dEoxGvncY/UYzZhH-nugI/AAAAAAAAR7c/GJ1mk-SovxU/s400/oosouji_soujiki.png'
