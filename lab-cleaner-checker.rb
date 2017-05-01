@@ -46,29 +46,31 @@ end
 handler do |job|
   case job
   when 'lab-cleaner-day.job'
-    today = Time.now
-    num_group = [1, 2, 3, 4]
+    begin
+      today = Time.now
+      num_group = [1, 2, 3, 4]
 
-    if today.strftime('%w') == '5'
-      # if today Friday
-      count = get_current_num
-      subject = today.strftime('%x') + "\nToday is Friday!\n" + "Today cleaner group is " + num_group[count].to_s
+      if today.strftime('%w') == '5'
+        # if today Friday
+        count = get_current_num
+        subject = today.strftime('%x') + "\nToday is Friday!\n" + "Today cleaner group is " + num_group[count].to_s
 
-      post_slack_messeage(subject, config_file)
+        post_slack_messeage(subject, config_file)
 
-      if count == num_group.length - 1
-        count = 0
-        write_count(count)
+        if count == num_group.length - 1
+          count = 0
+          write_count(count)
+        else
+          count += 1
+          write_count(count)
+        end
+
       else
-        count += 1
-        write_count(count)
+        # if today not Friday
+        # do nothing
       end
-
-    else
-      # if today not Friday
-      subject = today.strftime('%x') + "\nToday is not Friday...\n"
-
-      post_slack_messeage(subject, config_file)
+    rescue => e
+      post_slack_messeage(e, config_file)
     end
   end
 end
