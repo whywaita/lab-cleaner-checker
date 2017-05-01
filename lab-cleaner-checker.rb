@@ -6,6 +6,8 @@ require 'yaml'
 include Clockwork
 
 config_file = YAML.load_file('config.yml')
+LOG_FILE="log/next_group"
+
 Slack.configure do |config|
   config.token = config_file['slack']['token'] || ENV['SLACK_TOKEN']
   if config.token == ''
@@ -28,7 +30,7 @@ end
 def get_current_num()
   # get current number from file
 
-  File::open("log/current_num", "r") {|f|
+  File::open(LOG_FILE, "r") {|f|
     num = f.gets
     return num.to_i
   }
@@ -37,7 +39,7 @@ end
 def write_count(num)
   # write current num
 
-  File::open("log/current_num", "w") {|f|
+  File::open(LOG_FILE, "w") {|f|
     f.print(num)
     return nil
   }
@@ -57,8 +59,8 @@ handler do |job|
 
         post_slack_messeage(subject, config_file)
 
-        if count == num_group.length - 1
-          count = 0
+        if count == num_group.length
+          count = 1
           write_count(count)
         else
           count += 1
