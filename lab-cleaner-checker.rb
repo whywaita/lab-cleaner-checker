@@ -50,7 +50,7 @@ handler do |job|
   when 'lab-cleaner-day.job'
     begin
       today = Time.now
-      num_group = [1, 2, 3, 4]
+      num_group = [0, 1, 2, 3, 4]
 
       if today.strftime('%w') == '5'
         # if today Friday
