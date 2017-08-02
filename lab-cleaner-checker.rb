@@ -78,4 +78,4 @@ handler do |job|
 end
 
 # every(1.day, 'lab-cleaner-day.job', :at => '18:00')
-every(10.seconds, 'lab-cleaner-day.job')
+every(20.seconds, 'lab-cleaner-day.job')
